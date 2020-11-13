@@ -1,0 +1,12 @@
+﻿@model IEnumerable<Assignment3_5105.Models.Teacher>
+
+@{
+    ViewBag.Title = "list";
+}
+
+<h2>list</h2>
+
+@foreach (var teacher in Model)
+{
+    <div> @teacher.teacherfname @teacher.teacherlname @teacher.teacherId @teacher.salary @teacher.hiredate </div>
+}
