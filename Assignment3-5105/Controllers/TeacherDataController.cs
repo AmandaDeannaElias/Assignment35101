@@ -6,8 +6,8 @@ using System.Net.Http;
 using System.Web.Http;
 using Assignment3_5105.Models;
 using MySql.Data.MySqlClient;
-//this is from Christine Bittle's Blog code from gitHub as reference on Nov 11 and 12 2020
-//I also have utilized Christine Bittle's youtube videos for modules 6, 7, 8 and 9 provided via Blackboard on Nov 11 and 12 2020 for educational purposes
+//this is from Christine Bittle's Blog code from gitHub as reference on Nov 11, 12 and Dec 03 2020
+//I also have utilized Christine Bittle's youtube videos for modules 6, 7, 8, 9 and 11 provided via Blackboard on Nov 11 and 12 2020 for educational purposes
 
 namespace Assignment3_5105.Controllers
 {
@@ -106,6 +106,46 @@ namespace Assignment3_5105.Controllers
 
 
             return NewTeacher;
+        }
+        [HttpPost]
+        public void DeleteTeacher(int id)
+        {
+            //Create an instance of a connection
+            MySqlConnection Conn = schooldatabase.AccessDatabase();
+
+            Conn.Open();
+
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            cmd.CommandText = "Delete from teacher where teacherid = @id";
+            cmd.Parameters.AddWithValue("@id", id);
+            cmd.Prepare();
+
+            cmd.ExecuteNonQuery();
+
+            Conn.Close();
+
+
+        }
+        public void AddTeacher(Teacher NewTeacher)
+        {
+            MySqlConnection Conn = schooldatabase.AccessDatabase();
+
+            Conn.Open();
+
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            cmd.CommandText = "Insert into teachers (teacherfname, teacherlname, employeenumber, hiredate, salary) values (@teacherfname, @teacherlname, @employeenumber, @hiredate, @salary)";
+
+            cmd.Parameters.AddWithValue("@teacherfname", NewTeacher.teacherfname);
+            cmd.Parameters.AddWithValue("@teacherlname", NewTeacher.teacherlname);
+            cmd.Parameters.AddWithValue("@employeenumber", NewTeacher.employeenumber);
+            cmd.Parameters.AddWithValue("@hiredate", NewTeacher.hiredate);
+            cmd.Parameters.AddWithValue("@salary", NewTeacher.salary);
+
+            cmd.ExecuteNonQuery();
+
+            Conn.Close();
         }
 
     }

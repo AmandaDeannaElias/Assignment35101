@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using Assignment3_5105.Models;
+using System.Diagnostics;
 
 namespace Assignment3_5105.Controllers
 {
@@ -29,6 +30,46 @@ namespace Assignment3_5105.Controllers
             TeacherDataController controller = new TeacherDataController();
             Teacher NewTeacher = controller.ShowTeacher(id);
             return View(NewTeacher);
+        }
+        public ActionResult DeleteConfirm(int id)
+        {
+            TeacherDataController controller = new TeacherDataController();
+            Teacher NewTeacher = controller.ShowTeacher(id);
+            return View(NewTeacher);
+        }
+        public ActionResult Delete(int id)
+        {
+            TeacherDataController controller = new TeacherDataController();
+            controller.DeleteTeacher(id);
+            return RedirectToAction("List");
+        }
+
+        public ActionResult New()
+        {
+            return View();
+        }
+        
+        [HttpPost]
+        public ActionResult Create(string teacherfname, string teacherlname, string employeenumber, DateTime hiredate, decimal salary)
+        {
+            Debug.WriteLine("I have accessed the Create Method!");
+            Debug.WriteLine(teacherfname);
+            Debug.WriteLine(teacherlname);
+            Debug.WriteLine(employeenumber);
+            Debug.WriteLine(hiredate);
+            Debug.WriteLine(salary);
+
+            Teacher NewTeacher = new Teacher();
+            NewTeacher.teacherfname = teacherfname;
+            NewTeacher.teacherlname = teacherlname;
+            NewTeacher.employeenumber = employeenumber;
+            NewTeacher.hiredate = hiredate;
+            NewTeacher.salary = salary;
+
+            TeacherDataController controller = new TeacherDataController();
+            controller.AddTeacher(NewTeacher);
+
+            return RedirectToAction("list");
         }
     }
 }

@@ -15,3 +15,22 @@ select,
 textarea {
     max-width: 280px;
 }
+nav {
+    overflow: hidden;
+    margin-bottom: 30px;
+}
+
+.navlink {
+    float: left;
+    font-size: 20px;
+    padding-top: 30px;
+}
+
+.dellink {
+    float: right;
+    font-size: 20px;
+    padding-top: 30px;
+}
+.teachernames{
+    padding-top: 20px;
+}

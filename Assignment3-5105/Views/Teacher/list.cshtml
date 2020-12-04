@@ -3,10 +3,12 @@
 @{
     ViewBag.Title = "list";
 }
-
-<h2>list</h2>
+<nav>
+    <a class="navlink" href="/Teacher/New">New Teacher</a>
+</nav>
+<h2>Full List of Teachers</h2>
 
 @foreach (var teacher in Model)
 {
-    <div> @teacher.teacherfname @teacher.teacherlname @teacher.teacherId @teacher.salary @teacher.hiredate </div>
+    <div><a href="/Teacher/Show/@teacher.teacherId"> @teacher.teacherfname @teacher.teacherlname @teacher.teacherId @teacher.salary @teacher.hiredate</a></div>
 }
