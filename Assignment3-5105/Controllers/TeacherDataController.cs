@@ -117,7 +117,7 @@ namespace Assignment3_5105.Controllers
 
             MySqlCommand cmd = Conn.CreateCommand();
 
-            cmd.CommandText = "Delete from teacher where teacherid = @id";
+            cmd.CommandText = "Delete from teachers where teacherid = @id";
             cmd.Parameters.AddWithValue("@id", id);
             cmd.Prepare();
 
@@ -135,7 +135,7 @@ namespace Assignment3_5105.Controllers
 
             MySqlCommand cmd = Conn.CreateCommand();
 
-            cmd.CommandText = "Insert into teachers (teacherfname, teacherlname, employeenumber, hiredate, salary) values (@teacherfname, @teacherlname, @employeenumber, @hiredate, @salary)";
+            cmd.CommandText = "Insert into teachers (teacherfname, teacherlname, employeenumber, hiredate, salary) values (@teacherfname, @teacherlname, @employeenumber, @hiredate, @salary) where teacher";
 
             cmd.Parameters.AddWithValue("@teacherfname", NewTeacher.teacherfname);
             cmd.Parameters.AddWithValue("@teacherlname", NewTeacher.teacherlname);
@@ -146,6 +146,31 @@ namespace Assignment3_5105.Controllers
             cmd.ExecuteNonQuery();
 
             Conn.Close();
+        }
+
+        public void UpdateTeacher(int id, [FromBody]Teacher TeacherInfo)
+        {
+            MySqlConnection Conn = schooldatabase.AccessDatabase();
+
+            Conn.Open();
+
+            MySqlCommand cmd = Conn.CreateCommand();
+
+            cmd.CommandText = "update teachers set teacherfname=@teacherfname, teacherlname=@teacherlname, employeenumber=@employeenumber, hiredate=@hiredate, salary=@salary where teacherId=@teacherId";
+
+            cmd.Parameters.AddWithValue("@teacherfname", TeacherInfo.teacherfname);
+            cmd.Parameters.AddWithValue("@teacherlname", TeacherInfo.teacherlname);
+            cmd.Parameters.AddWithValue("@employeenumber", TeacherInfo.employeenumber);
+            cmd.Parameters.AddWithValue("@hiredate", TeacherInfo.hiredate);
+            cmd.Parameters.AddWithValue("@salary", TeacherInfo.salary);
+            cmd.Parameters.AddWithValue("@teacherId", id);
+
+            cmd.ExecuteNonQuery();
+
+            Conn.Close();
+
+
+
         }
 
     }
